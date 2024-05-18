@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+<<<<<<< HEAD
 """a module of a class"""
 import json
 from datetime import datetime
@@ -40,3 +41,11 @@ class FileStorage:
 
         except FileNotFoundError:
             pass
+=======
+""" recreate a BaseModel """
+import cmd
+
+class FileStorage:
+    def __init__(self, *args, **kwargs):
+        __file_path = kwargs.('file_path')
+>>>>>>> 9e8c9dbbadb07f328dd3603e542cd626e0e6462c
