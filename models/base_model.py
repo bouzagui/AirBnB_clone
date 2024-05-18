@@ -23,6 +23,9 @@ class BaseModel:
             now = datetime.now()
             self.created_at = now
             self.updated_at = now
+            from .__init__ import storage
+            storage.new(self)
+
 
     def __str__(self):
         """Returns the string representation of an instance"""
@@ -32,6 +35,8 @@ class BaseModel:
     def save(self):
         """update the public instance updated_at"""
         self.updated_at = datetime.now()
+        from .__init__ import storage
+        storage.save()
 
     def to_dict(self):
         """returns the dictionary

@@ -29,14 +29,14 @@ class FileStorage:
             json.dump(obj_dict, file)
     
     def reload(self):
-        """Deserializes the JSON file to __objects"""
+        """deserializes instances got from json file"""
         try:
-            with open(self.__file_path, 'r') as file:
-                data = json.load(file)
-                for key, obj_data in data.items():
-                    class_name = key.split('.')[0]
-                    obj_instance = globals()[class_name](**obj_data)
-                    self.__objects[key] = obj_instance
+            with open(self.__file_path, 'r') as f:
+                dictofobjs = json.loads(f.read())
+                from models.base_model import BaseModel
+                for key, value in dictofobjs.items():
+                    if value['__class__'] == 'BaseModel':
+                        self.__objects[key] = BaseModel(**value)
 
         except FileNotFoundError:
             pass
