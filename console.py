@@ -19,5 +19,5 @@ class HBNBCommand(cmd.Cmd):
     do_EOF = do_quit
 
 
-if name == '__main__':
+if __name__ == '__main__':
     HBNBCommand().cmdloop()
