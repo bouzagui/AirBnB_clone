@@ -51,6 +51,16 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print(obj)
 
+    def do_destroy(self, line):
+        """deletes the string representation of an instance \
+        based on the class name and id."""
+        args = line.split()
+        if len(args) == 0:
+            print('** class name missing **')
+        elif args[0] not in self.classes:
+            print('** class doesn\'t exist **')
+        elif len(args) == 1:
+            print('** instance id missing **')
 
 
 if __name__ == '__main__':

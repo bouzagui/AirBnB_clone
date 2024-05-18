@@ -21,8 +21,8 @@ class BaseModel:
         else:
             self.id = str(uuid4())
             now = datetime.now()
-            self.created_at = now
             self.updated_at = now
+            self.created_at = now
             from .__init__ import storage
             storage.new(self)
 
@@ -41,8 +41,10 @@ class BaseModel:
     def to_dict(self):
         """returns the dictionary
         representation of the instance"""
-        to_dict = dict(self.__dict__)
-        to_dict["__class__"] = self.__class__.__name__
-        to_dict["created_at"] = to_dict["created_at"].isoformat()
-        to_dict["updated_at"] = to_dict["updated_at"].isoformat()
-        return to_dict
+        disdict = dict(self.__dict__)
+        disdict.update({'__class__': type(self).__name__,
+                        'created_at': self.created_at.isoformat(),
+                        'id': self.id,
+                        'updated_at': self.updated_at.isoformat()
+                        })
+        return disdict
