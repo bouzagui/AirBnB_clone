@@ -2,7 +2,6 @@
 """ base module for all functions """
 from uuid import uuid4
 from datetime import datetime
-from models import storage
 
 
 class BaseModel:
@@ -16,14 +15,13 @@ class BaseModel:
         self.id = str(uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
-        storage.new(self)
-        if kwargs:
+        if kwargs is not None:
             for key, value in kwargs.items():
-                if key == 'created_at' or key == 'updated_at':
-                    self.__dict__[key] = datetime.strptime(
-                        value, "%Y-%m-%dT%H:%M:%S.%f")
-                elif key != "__class__":
-                    self.__dict__[key] = value
+                if key == '__class__':
+                    if key == 'created_at' or key == 'updated_at':
+                        self.__dict__ = datetime.strptime(
+                            value, '%Y-%m-%dT%H:%M:%S.%f')
+                        setattr(self, key, self.__dict__)
 
     def __str__(self) -> str:
         """Returns the string representation of an instance"""
@@ -33,7 +31,6 @@ class BaseModel:
     def save(self):
         """update the public instance updated_at"""
         self.updated_at = datetime.now()
-        storage.save()
 
     def to_dict(self) -> dict:
         """returns the dictionary
