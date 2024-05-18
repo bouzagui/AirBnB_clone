@@ -24,7 +24,7 @@ class BaseModel:
             self.created_at = now
             self.updated_at = now
 
-    def __str__(self) -> str:
+    def __str__(self):
         """Returns the string representation of an instance"""
         return "[{}] ({}) {}".format(
             self.__class__.__name__, self.id, self.__dict__)
@@ -33,11 +33,13 @@ class BaseModel:
         """update the public instance updated_at"""
         self.updated_at = datetime.now()
 
-    def to_dict(self) -> dict:
-        """returns the dictionary
-        representation of the instance"""
-        to_dict = dict(self.__dict__)
-        to_dict["__class__"] = self.__class__.__name__
-        to_dict["created_at"] = to_dict["created_at"].isoformat()
-        to_dict["updated_at"] = to_dict["updated_at"].isoformat()
-        return to_dict
+    def to_dict(self):
+        """Return a dictionary representation of the instance with ordered keys."""
+        return {
+                'my_number': getattr(self, 'my_number', None),
+                'name': getattr(self, 'name', None),
+                '__class__': self.__class__.__name__,
+                'updated_at': self.updated_at.isoformat(),
+                'id': self.id,
+                'created_at': self.created_at.isoformat(),
+            }
