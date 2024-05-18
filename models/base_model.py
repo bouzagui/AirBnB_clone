@@ -2,6 +2,7 @@
 """ base module for all functions """
 from uuid import uuid4
 from datetime import datetime
+from models import storage
 
 
 class BaseModel:
@@ -15,6 +16,7 @@ class BaseModel:
         self.id = str(uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
+        storage.new(self)
         if kwargs:
             for key, value in kwargs.items():
                 if key == 'created_at' or key == 'updated_at':
@@ -31,6 +33,7 @@ class BaseModel:
     def save(self):
         """update the public instance updated_at"""
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self) -> dict:
         """returns the dictionary
