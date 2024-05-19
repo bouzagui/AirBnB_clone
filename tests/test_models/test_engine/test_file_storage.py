@@ -37,13 +37,21 @@ class TestFileStorage(unittest.TestCase):
         storage.save()
         self.assertEqual(storage.reload(), None)
 
-    def test_(self):
+    def test_all(self):
         storage1 = FileStorage()
         self.assertIsInstance(storage1.all(), dict)
+        self.assertEqual(self.storage.all(), {})
 
-    def test___(self):
+    def test_new(self):
         storage1 = FileStorage()
         base = BaseModel()
         storage1.new(base)
         key = type(base).__name__ + '.' + base.id
         self.assertEqual(storage1.all()[key], base)
+
+    def test_save(self):
+        storage1 = FileStorage()
+        base = BaseModel()
+        storage1.new(base)
+        storage1.save()
+        self.assertTrue(os.path.isfile('file.json'))
