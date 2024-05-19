@@ -139,6 +139,8 @@ class HBNBCommand(cmd.Cmd):
         args = line.split('.')
         if len(args) == 2 and args[1] == 'all()' and args[0] in self.classes:
             self.do_all(args[0])
+        elif len(args) == 2 and args[1] == 'count()' and args[0] in self.classes:
+            self.do_count(args[0])
         else:
             print("*** Unknown syntax: {}".format(line))
 
@@ -146,6 +148,7 @@ class HBNBCommand(cmd.Cmd):
         """Counts the number of instances of a class"""
         count = sum(1 for obj in storage.all().values() if obj.__class__.__name__ == class_name)
         print(count)
+
 
 if __name__ == '__main__':
     """main function"""
