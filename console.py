@@ -26,7 +26,7 @@ class HBNBCommand(cmd.Cmd):
         (to the JSON file) and prints the id."""
         if line == '':
             print('** class name missing **')
-        elif line not in HBNBCommand.classes:
+        elif line not in self.classes:
             print('** class doesn\'t exist **')
         else:
             obj = BaseModel()
@@ -57,10 +57,57 @@ class HBNBCommand(cmd.Cmd):
         args = line.split()
         if len(args) == 0:
             print('** class name missing **')
-        elif args[0] not in self.classes:
-            print('** class doesn\'t exist **')
+        elif args[0] not in HBNBCommand.classes:
+            print("** class doesn't exist **")
         elif len(args) == 1:
             print('** instance id missing **')
+        else:
+            key = args[0] + '.' + args[1]
+            obj = storage.all().get(key)
+            if obj is None:
+                print('** no instance found **')
+            else:
+                del storage.all()[key]
+                storage.save()
+    
+
+    def do_all(self, line):
+        """Prints all string representation of all \
+        instances based or not on the class name."""
+        args = line.split()
+        if len(args) == 0:
+            for obj in storage.all().values():
+                print(obj)
+        elif args[0] not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+        else:
+            for obj in storage.all().values():
+                if obj.__class__.__name__ == args[0]:
+                    print(obj)
+
+    def do_update(self, line):
+        """Updates an instance based on the class name and id \
+        by adding or updating attribute (save the change into the JSON file)."""
+        args = line.split()
+        if len(args) == 0:
+            print('** class name missing **')
+        elif args[0] not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print('** instance id missing **')
+        else:
+            key = args[0] + '.' + args[1]
+            obj = storage.all().get(key)
+            if obj is None:
+                print('** no instance found **')
+            elif len(args) == 2:
+                print('** attribute name missing **')
+            elif len(args) == 3:
+                print('** value missing **')
+            else:
+                setattr(obj, args[2], args[3])
+                storage.save()
+        
 
 
 if __name__ == '__main__':
