@@ -3,6 +3,7 @@
 import cmd
 from models.base_model import BaseModel
 from models.__init__ import storage
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
@@ -29,8 +30,12 @@ class HBNBCommand(cmd.Cmd):
         elif line not in self.classes:
             print('** class doesn\'t exist **')
         else:
-            obj = BaseModel()
-            storage.save()
+            if line == "BaseModel":
+                obj = BaseModel()
+                storage.save()
+            elif line == "User":
+                obj = User()
+                storage.save()
             print(obj.id)
 
     def do_show(self, line):
