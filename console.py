@@ -142,6 +142,10 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("*** Unknown syntax: {}".format(line))
 
+    def do_count(self, class_name):
+        """Counts the number of instances of a class"""
+        count = sum(1 for obj in storage.all().values() if obj.__class__.__name__ == class_name)
+        print(count)
 
 if __name__ == '__main__':
     """main function"""
