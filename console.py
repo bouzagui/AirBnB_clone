@@ -16,9 +16,9 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = "(hbnb) "
     classes = [
-        "BaseModel", "User", "State", "City",
-                "Amenity", "Place", "Review"
-                ]
+        "BaseModel", "User", "State",
+        "City", "Amenity", "Place", "Review"
+        ]
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
@@ -31,8 +31,8 @@ class HBNBCommand(cmd.Cmd):
     do_EOF = do_quit
 
     def do_create(self, line):
-        """Creates a new instance of a given class, saves it
-        (to the JSON file) and prints the id."""
+        ''' Creates a new instance of BaseModel,
+        saves it ( JSON file) and prints'''
         if line == '':
             print('** class name missing **')
         elif line not in self.classes:
@@ -62,8 +62,7 @@ class HBNBCommand(cmd.Cmd):
             print(obj.id)
 
     def do_show(self, line):
-        """Prints the string representation of an instance
-        based on the class name and id."""
+        '''Prints the string representation of an instance'''
         args = line.split()
         if len(args) == 0:
             print('** class name missing **')
@@ -80,8 +79,7 @@ class HBNBCommand(cmd.Cmd):
                 print(obj)
 
     def do_destroy(self, line):
-        """deletes the string representation of an instance
-        based on the class name and id."""
+        '''Deletes an instance based on the class name'''
         args = line.split()
         if len(args) == 0:
             print('** class name missing **')
@@ -113,8 +111,9 @@ class HBNBCommand(cmd.Cmd):
                     print(obj)
 
     def do_update(self, line):
-        """Updates the instance based on the
-        class name and id."""
+        '''Updates an instance based on the class name
+        and id by adding or updating
+        attribute (save the change into the JSON file)'''
         args = line.split()
         if len(args) == 0:
             print('** class name missing **')
@@ -134,6 +133,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 setattr(obj, args[2], args[3])
                 storage.save()
+
 
 if __name__ == '__main__':
     """main function"""
