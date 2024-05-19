@@ -4,18 +4,26 @@ import cmd
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
     """command interpreter"""
 
     prompt = "(hbnb) "
-    classes = ["BaseModel", "User"]
+    classes = [
+        "BaseModel", "User", "State", "City",
+                "Amenity", "Place", "Review"
+                ]
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
         return True
-    
+
     def emptyline(self):
         """Called when an empty line is entered"""
         pass
@@ -23,7 +31,7 @@ class HBNBCommand(cmd.Cmd):
     do_EOF = do_quit
 
     def do_create(self, line):
-        """Creates a new instance of a given class, saves it \
+        """Creates a new instance of a given class, saves it
         (to the JSON file) and prints the id."""
         if line == '':
             print('** class name missing **')
@@ -36,10 +44,25 @@ class HBNBCommand(cmd.Cmd):
             elif line == "User":
                 obj = User()
                 storage.save()
+            elif line == "State":
+                obj = State()
+                storage.save()
+            elif line == "City":
+                obj = City()
+                storage.save()
+            elif line == "Amenity":
+                obj = Amenity()
+                storage.save()
+            elif line == "Place":
+                obj = Place()
+                storage.save()
+            elif line == "Review":
+                obj = Review()
+                storage.save()
             print(obj.id)
 
     def do_show(self, line):
-        """Prints the string representation of an instance \
+        """Prints the string representation of an instance
         based on the class name and id."""
         args = line.split()
         if len(args) == 0:
@@ -57,7 +80,7 @@ class HBNBCommand(cmd.Cmd):
                 print(obj)
 
     def do_destroy(self, line):
-        """deletes the string representation of an instance \
+        """deletes the string representation of an instance
         based on the class name and id."""
         args = line.split()
         if len(args) == 0:
@@ -77,7 +100,7 @@ class HBNBCommand(cmd.Cmd):
     
 
     def do_all(self, line):
-        """Prints all string representation of all \
+        """Prints all string representation of all
         instances based or not on the class name."""
         args = line.split()
         if len(args) == 0:
@@ -91,8 +114,8 @@ class HBNBCommand(cmd.Cmd):
                     print(obj)
 
     def do_update(self, line):
-        """Updates an instance based on the class name and id \
-        by adding or updating attribute (save the change into the JSON file)."""
+        """Updates the instance based on the
+        class name and id."""
         args = line.split()
         if len(args) == 0:
             print('** class name missing **')
@@ -112,8 +135,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 setattr(obj, args[2], args[3])
                 storage.save()
-        
-
 
 if __name__ == '__main__':
+    """main function"""
     HBNBCommand().cmdloop()
