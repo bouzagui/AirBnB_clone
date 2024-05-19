@@ -41,11 +41,10 @@ class BaseModel:
     def to_dict(self):
         """returns the dictionary
         representation of the instance"""
-        return ({
-            'my_number': self.my_number,
-            'name': self.name,
-            '__class__': type(self).__name__,
-            'updated_at': self.updated_at.isoformat(),
-            'id': self.id,
-            'created_at': self.created_at.isoformat()
-                })
+        disdict = dict(self.__dict__)
+        disdict.update({'__class__': type(self).__name__,
+                        'created_at': self.created_at.isoformat(),
+                        'id': self.id,
+                        'updated_at': self.updated_at.isoformat()
+                        })
+        return disdict
