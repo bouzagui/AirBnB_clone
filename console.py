@@ -134,6 +134,14 @@ class HBNBCommand(cmd.Cmd):
                 setattr(obj, args[2], args[3])
                 storage.save()
 
+    def default(self, line):
+        """Handle default commands"""
+        args = line.split('.')
+        if len(args) == 2 and args[1] == 'all()' and args[0] in self.classes:
+            self.do_all(args[0])
+        else:
+            print("*** Unknown syntax: {}".format(line))
+
 
 if __name__ == '__main__':
     """main function"""
