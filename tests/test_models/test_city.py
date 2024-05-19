@@ -11,7 +11,7 @@ class TestCity(unittest.TestCase):
     def test_City_instance(self):
         """Test if City is an instance of BaseModel"""
         city = City()
-        self.assertIsInstance(city, BaseModel)
+        self.assertTrue(isinstance(city, BaseModel))
 
     def test_City_attributes(self):
         """Test the attributes of City"""
@@ -22,7 +22,7 @@ class TestCity(unittest.TestCase):
     def test_City_attribute_values(self):
         """Test setting and getting values of City attributes"""
         city = City()
-        city.state_id = "CA"
-        city.name = "San Francisco"
-        self.assertEqual(city.state_id, "CA")
-        self.assertEqual(city.name, "San Francisco")
+        city.state_id = "123"
+        city.name = "Example"
+        self.assertEqual(city.state_id, "123")
+        self.assertEqual(city.name, "Example")
