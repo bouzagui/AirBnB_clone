@@ -12,7 +12,7 @@ class TestUser(unittest.TestCase):
         """Test if User is an instance of BaseModel"""
         user = User()
         self.assertIsInstance(user, BaseModel)
-    
+
     def test_user_attributes(self):
         """Test the attributes of User"""
         user = User()
@@ -20,7 +20,6 @@ class TestUser(unittest.TestCase):
         self.assertTrue(hasattr(user, "password"))
         self.assertTrue(hasattr(user, "first_name"))
         self.assertTrue(hasattr(user, "last_name"))
-        
         self.assertIsInstance(user.email, str)
         self.assertIsInstance(user.password, str)
         self.assertIsInstance(user.first_name, str)
@@ -38,6 +37,7 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user.password, "password123")
         self.assertEqual(user.first_name, "John")
         self.assertEqual(user.last_name, "Doe")
+
 
 if __name__ == '__main__':
     unittest.main()

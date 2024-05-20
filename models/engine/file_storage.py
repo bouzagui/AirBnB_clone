@@ -12,7 +12,8 @@ from models.review import Review
 
 
 class FileStorage:
-    """serializes instances to a JSON file and deserializes JSON file to instances"""
+    """serializes instances to a JSON file \
+    and deserializes JSON file to instances"""
 
     def __init__(self):
         """initializes the class"""
@@ -22,18 +23,19 @@ class FileStorage:
     def all(self):
         """returns the dict"""
         return self.__objects
-    
+
     def new(self, obj):
         """sets the obj"""
         key = f"{obj.__class__.__name__}.{obj.id}"
         self.__objects[key] = obj
-    
+
     def save(self):
         """serialises self"""
         with open(self.__file_path, 'w') as file:
-            obj_dict = {key: obj.to_dict() for key, obj in self.__objects.items()}
+            obj_dict = {key: obj.to_dict() for key,
+                        obj in self.__objects.items()}
             json.dump(obj_dict, file)
-    
+
     def reload(self):
         """deserializes instances got from json file"""
         try:
