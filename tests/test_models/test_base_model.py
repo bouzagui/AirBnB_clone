@@ -15,7 +15,10 @@ class TestBaseModel(unittest.TestCase):
 
     def test_str(self):
         """Checks the string representation of an instance"""
-        expected_str = f"[{type(self.base).__name__}] ({self.base.id}) {self.base.__dict__}"
+        expected_str = (
+            f"[{type(self.base).__name__}]"
+            f"({self.base.id}) {self.base.__dict__}"
+        )
         self.assertEqual(str(self.base), expected_str)
 
     def test_to_dict(self):
@@ -24,8 +27,10 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(base_dict, dict)
         self.assertEqual(base_dict['__class__'], 'BaseModel')
         self.assertEqual(base_dict['id'], self.base.id)
-        self.assertEqual(base_dict['created_at'], self.base.created_at.isoformat())
-        self.assertEqual(base_dict['updated_at'], self.base.updated_at.isoformat())
+        self.assertEqual(base_dict['created_at'],
+                         self.base.created_at.isoformat())
+        self.assertEqual(base_dict['updated_at'],
+                         self.base.updated_at.isoformat())
 
         prev_time = self.base.updated_at
         self.base.save()
@@ -46,6 +51,7 @@ class TestBaseModel(unittest.TestCase):
         self.base.save()
         new_time = self.base.updated_at
         self.assertNotEqual(prev_time, new_time)
+
 
 if __name__ == '__main__':
     unittest.main()
