@@ -1,4 +1,5 @@
 # AirBnB Clone - The Console
+![image](https://github.com/bouzagui/AirBnB_clone/assets/140172813/897c4025-d7c1-49cd-b6ea-dafc53c88f67)
 
 ## Project Description
 This project is part of the Holberton School's AirBnB clone series. The goal of this part of the project is to create a command interpreter (console) that will manage the objects of our application. The console allows us to create, update, delete, and retrieve instances of our data model, which are serialized and deserialized to and from JSON files.
